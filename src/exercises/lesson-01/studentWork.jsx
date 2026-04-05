@@ -20,7 +20,11 @@ export default function StudentWork() {
         understand how things work and improve step by step.{' '}
       </p>
       <h5>My hobbies & interests</h5>
-      <ul>{}</ul>
+      <ul>
+        {hobbies.map((hobby) => (
+          <li key={hobby}>{hobby}</li>
+        ))}
+      </ul>
     </div>
   );
 }
