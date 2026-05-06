@@ -27,15 +27,45 @@ export default function SnackForm({
     setTouched({ name: false, rating: false });
   }, [isEditing, editingSnack]);
 
+  // Validation functions
+  function validateName() {
+    return name.trim() !== '';
+  }
+  function validateRating() {
+    return rating !== '';
+  }
+  function getNameError() {
+    if (!validateName() && touched.name) {
+      return 'Snack name is required';
+    }
+    return '';
+  }
+  function getRatingError() {
+    if (!validateRating() && touched.rating) {
+      return 'Please select a rating';
+    }
+    return '';
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    // We'll update this in the validation step
+    // Mark all fields as touched if submitting
+    setTouched({ name: true, rating: true });
+
+    // Validate before submit
+    const isNameValid = validateName();
+    const isRatingValid = validateRating();
+    if (!isNameValid || !isRatingValid) {
+      return; // Prevent submit if invalid
+    }
+
     if (isEditing) {
       updateSnack(editingSnack.id, name, rating);
     } else {
       addSnack(name, rating);
       setName('');
       setRating('');
+      setTouched({ name: false, rating: false });
     }
   }
 
@@ -59,6 +89,7 @@ export default function SnackForm({
           className={styles['field-input']}
           placeholder="Enter snack name"
         />
+        {getNameError() && <div className={styles.error}>{getNameError()}</div>}
       </div>
 
       <div className={styles['field-container']}>
@@ -74,6 +105,9 @@ export default function SnackForm({
           className={styles['field-input']}
           placeholder="Rate 1-5"
         />
+        {getRatingError() && (
+          <div className={styles.error}>{getRatingError()}</div>
+        )}
       </div>
 
       <div className={styles['button-container']}>
