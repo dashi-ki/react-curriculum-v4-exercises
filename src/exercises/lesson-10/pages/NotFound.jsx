@@ -10,7 +10,7 @@ export default function NotFound() {
         No page exists for <code>{pathname}</code>.
       </p>
       <p>
-        <Link to="/">Go Home</Link>
+        <Link to="/lessons/lesson-10">Go Home</Link>
       </p>
     </section>
   );

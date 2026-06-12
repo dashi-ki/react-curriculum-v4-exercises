@@ -42,7 +42,7 @@ export default function Home({ products }) {
               <strong>${p.price.toFixed(2)}</strong>
             </p>
 
-            <Link to={`/products/${p.id}`}>View Details</Link>
+            <Link to={`/lessons/lesson-10/products/${p.id}`}>View Details</Link>
           </article>
         ))}
       </div>
